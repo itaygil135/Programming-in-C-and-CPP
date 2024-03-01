@@ -1,0 +1,1 @@
+/usr/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/ex5_itaygil135.dir/Matrix.cpp.o  -o ex5_itaygil135.exe -Wl,--out-implib,libex5_itaygil135.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

@@ -1,0 +1,4 @@
+/cygdrive/c/huji/c_cpp/t1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/huji/c_cpp/t1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/cygdrive/c/huji/c_cpp/t1/cmake-build-debug/CMakeFiles/test.dir
+/cygdrive/c/huji/c_cpp/t1/cmake-build-debug/CMakeFiles/t1.dir

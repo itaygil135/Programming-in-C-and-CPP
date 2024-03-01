@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/huji/c_cpp/untitled4/library.c
+library.h
+/cygdrive/c/huji/c_cpp/untitled4/library.h
+stdio.h
+-
+
+/cygdrive/c/huji/c_cpp/untitled4/library.h
+

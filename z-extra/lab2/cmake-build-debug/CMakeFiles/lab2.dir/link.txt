@@ -1,0 +1,2 @@
+/usr/bin/ar.exe qc liblab2.a  CMakeFiles/lab2.dir/library.c.o
+/usr/bin/ranlib.exe liblab2.a

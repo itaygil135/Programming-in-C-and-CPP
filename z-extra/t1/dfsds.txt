@@ -1,0 +1,225 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+** 
+ * Allocate a mall, all members should be zero initialized (this means NULL for pointers)
+ */
+mall_t *mallAlloc()
+    { 
+        return (mall_t*)calloc(1,sizeof(mall_t));
+    }
+/** 
+ * search all floors of a mall for a shop with the same name as shopName
+ * return a pointer to the first match. Order of search is from floor 0
+ */
+shop_t *findShop(mall_t *mall, const char *shopName)
+    {
+
+        if ( ( mall == NULL) || (shopName == NULL))
+        {
+            return NULL;
+        }
+        for(int i = 0; i < NUM_FLOORS_IN_MALL;i++)
+        {
+            for(int j = 0;j< mall->numShops[i];j++)
+            {
+                 if (mall->shops[i] != NULL)   
+                 {
+                    if (mall->shops[i][j].name != NULL)
+                    {
+                        if (strcmp(shopName,mall->shops[i][j].name) == 0)
+                        {
+                            return (&(mall->shops[i][j]));
+                        }
+                    }
+                 }
+            }
+        }
+        return NULL;
+    }
+
+
+
+  
+/** 
+ * add a shop to the mall, in the floor floorNum, with a name of shopName, floor type of floorType
+ * and a floor which is the copy of the given floor.
+ * If a shop with the given name exists on the floor, treat as invalid input.
+ * floorNum > NUM_FLOORS_IN_MALL is invalid input.
+ * NULL pointer as argument is invalid input.
+ * 
+ */
+void addShop(mall_t *mall, size_t floorNum, const char *shopName, int floorType, floor_t floor)
+    {
+
+        if (( mall == NULL) || (shopName ==NULL))
+        {
+            return;
+        }
+        for(int j = 0;j< mall->numShops[floorNum];j++)
+        {
+            if (strcmp(shopName,mall->shops[floorNum][j].name) == 0)
+            {
+                return;
+            }        
+        }
+        shop_t* p = realloc(mall->shops[floorNum],
+                           (mall->numShops[floorNum] + 1)* sizeof(shop_t));
+        if(p == NULL){exit(1);}
+        if (p != mall->shops[floorNum])
+        {
+            if (mall->shops[floorNum] != NULL)
+            {
+                free(mall->shops[floorNum]);
+            }
+            mall->shops[floorNum] = p;
+        }  
+        size_t new_shop_ind = mall->numShops[floorNum] ;
+        mall->numShops[floorNum] = mall->numShops[floorNum] + 1;
+        
+       // mall->shops[floorNum][mall->numShops[floorNum]] = (shop_t*)malloc(sizeof(shop_t));
+       // if(mall->shops[floorNum][mall->numShops[floorNum]] == NULL){return;}
+        
+        mall->shops[floorNum][new_shop_ind].name = malloc(strlen(shopName)+1);
+        if (mall->shops[floorNum][new_shop_ind].name == NULL) {exit(1);}
+        strcpy(mall->shops[floorNum][new_shop_ind].name,shopName);
+        mall->shops[floorNum][new_shop_ind].name[strlen(shopName)]='\0';
+        switch (floorType)
+        {
+            case STR:
+                if (floor.floorStr != NULL)
+                {
+                    mall->shops[floorNum][new_shop_ind].floor.floorStr = malloc(strlen(floor.floorStr)+1);
+                    if (mall->shops[floorNum][new_shop_ind].floor.floorStr == NULL) {exit(1);}
+                    strcpy(mall->shops[floorNum][new_shop_ind].floor.floorStr, floor.floorStr);
+                    mall->shops[floorNum][new_shop_ind].floor.floorStr[strlen(floor.floorStr)] = '\0';
+                }
+            break;
+            case INT:
+                mall->shops[floorNum][new_shop_ind].floor.floorNum = floor.floorNum;
+                break;
+            case CHAR:
+                mall->shops[floorNum][new_shop_ind].floor.floorChar = floor.floorChar;
+                break;
+            default:
+                return;
+        }
+    }    
+
+
+ /* prints a shop. print format should be (where <> means the value of the field in the shop):
+ * <floorName>, floor <floor>
+ *
+ * No new line at the end of the shop
+ * for example - a  shop with name "C Fashion" and floor 5 will be printed as:
+ * C Fashion, floor 5
+*/
+void printShop(const shop_t *shop)
+{
+
+    if ((shop != NULL) && (shop->name != NULL))
+    {
+     //fprintf(stdout,"%s, floor ", shop->name);
+        switch (shop->floorType)
+        {
+            case STR:
+            //if (shop->floor.floorStr != NULL)
+               // fprintf(stdout,"%s",shop->floor.floorStr);
+            break;
+            case INT:
+            // printf("%d",shop->floor.floorNum);
+             break;
+            case CHAR:
+               // printf("%c",shop->floor.floorChar);
+                break;
+            default:
+                return;
+        }
+    }
+}
+
+
+
+/** 
+ * free a shop. shop is a pointer to a shop in one of the floors of a mall.
+ */
+void freeShop(shop_t *shop)
+{
+
+    if (shop != NULL)
+    {
+        if (shop->floorType == STR)
+        {
+            if (shop->floor.floorStr != NULL)
+            {
+                free (shop->floor.floorStr);
+                shop->floor.floorStr = NULL;
+            }
+        }
+        if (shop->name != NULL)
+        {
+            free (shop->name);
+            shop->name = NULL;
+        }
+    
+       // if (shop != NULL)
+      //  {
+       //     free (shop);
+      //      shop = NULL;
+       // }
+    }
+    
+}
+
+/** 
+ * free a mall. The mall is dynamically allocated by the mall_alloc function
+ */
+void freeMall(mall_t **mall)
+{
+
+   if ((mall != NULL) && (*mall != NULL))
+   {
+     /*   if ((*mall)->shops != NULL)
+        {
+            for(int i = 0; i < NUM_FLOORS_IN_MALL;i++)
+            {
+                for(int j = 0;j< (*mall)->numShops[i];j++)
+                {
+                   freeShop(&((*mall)->shops[i][j]));
+                }
+                if ((*mall)->shops[i] != NULL)
+                {
+                    free ((*mall)->shops[i]);
+                    (*mall)->shops[i] = NULL;
+                }
+            }
+    
+        }
+        */
+        if (*mall != NULL)
+        {
+            free (*mall);
+            *mall = NULL;
+        }
+   }
+}
+
+
+
+
+
+
+
+
+
+

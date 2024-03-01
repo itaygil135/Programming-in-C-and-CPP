@@ -1,0 +1,33 @@
+ex4 pairs
+
+
+key=0  value=200  hash=48
+key=B  value=201  hash=66
+key=2  value=202  hash=50
+key=D  value=203  hash=68
+key=4  value=204  hash=52
+key=F  value=205  hash=70
+key=6  value=206  hash=54
+key=H  value=207  hash=72
+key=8  value=208  hash=56
+key=J  value=209  hash=74
+key=:  value=210  hash=58
+key=L  value=211  hash=76
+key=<  value=212  hash=60
+key=N  value=213  hash=78
+key=>  value=214  hash=62
+key=P  value=215  hash=80
+key=@  value=216  hash=64
+key=R  value=217  hash=82
+key=B  value=218  hash=66
+key=T  value=219  hash=84
+key=D  value=220  hash=68
+key=V  value=221  hash=86
+key=F  value=222  hash=70
+key=X  value=223  hash=88
+key=H  value=224  hash=72
+key=Z  value=225  hash=90
+key=J  value=226  hash=74
+key=\  value=227  hash=92
+key=L  value=228  hash=76
+key=^  value=229  hash=94
